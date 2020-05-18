@@ -1,9 +1,11 @@
+import io.restassured.response.Response;
+
 import java.io.PrintWriter;
 import java.util.*;
 
 import static io.restassured.RestAssured.*;
 
-public class Main {
+public class App {
 
     public static String API_KEY = "AIzaSyDciUo9L8xywPEvPqvMsLfsMIdHjNFo73I";
     public static String baseURI = "https://www.googleapis.com/youtube/v3/playlistItems";
@@ -12,6 +14,7 @@ public class Main {
     public static String playlistId = "";
     public static String request = "";
     public static ArrayList<LinkedHashMap> snippets;
+    public static Response response = null;
 
     private static String separatorDouble = "==================================================================================================";
 
@@ -19,18 +22,19 @@ public class Main {
     public static void main(String[] args) {
         inputParameters();
         createRequest();
-        sendRequest();
+        sendRequest(request);
         displayInfo();
         saveInfo();
     }
 
-    private static void sendRequest() {
+    public static Response sendRequest(String request) {
         System.out.println("\033[3mSending request...\033[0m");
-        snippets =  given().
-                    contentType("application/json; charset=UTF-16").
-                    when().
-                    get(request)
-                    .then().extract().path("items.snippet");
+        response = given().
+                contentType("application/json; charset=UTF-16").
+                when().
+                get(request);
+        snippets = response.then().extract().path("items.snippet");
+        return response;
     }
 
     private static void createRequest() {
@@ -40,8 +44,8 @@ public class Main {
                     "&key=" + API_KEY +
                     "&playlistId=" + playlistId +
                     "&" + maxResults;
+        System.out.println(request);
     }
-
 
     private static void inputParameters() {
         try (Scanner sc = new Scanner(System.in)) {
