@@ -1,8 +1,6 @@
-import io.restassured.response.Response;
-
-import java.io.PrintWriter;
 import java.util.*;
-
+import java.io.PrintWriter;
+import io.restassured.response.Response;
 import static io.restassured.RestAssured.*;
 
 public class App {
@@ -23,6 +21,7 @@ public class App {
         inputParameters();
         createRequest();
         sendRequest(request);
+        displayInfo();
         saveInfo();
     }
 
@@ -43,26 +42,38 @@ public class App {
                 "&key=" + API_KEY +
                 "&playlistId=" + playlistId +
                 "&" + maxResults;
-        System.out.println(request);
     }
 
     private static void inputParameters() {
+        System.out.print("Please enter YT playlist link, or enter playlist ID: ");
         try (Scanner sc = new Scanner(System.in)) {
-            parseLink(sc);
+            parseInput(sc);
         } catch (Exception e) {
             System.err.println("Exception! Error: " + e.getMessage());
         }
     }
 
-    private static void parseLink(Scanner sc) {
-        System.out.print("Please enter YT playlist link: ");
-        String link = sc.nextLine().trim();
+    private static void parseInput(Scanner sc) {
+        String input = sc.nextLine().trim();
         try {
-            playlistId = link.substring(link.indexOf("list=") + 5);
+            if (input.contains("https://www.youtube.com/"))  // It's a link
+                playlistId = input.substring(input.indexOf("list=") + 5);
+            else
+                playlistId = input;        // It's an ID
         } catch (StringIndexOutOfBoundsException e) {
             System.err.println("Wrong playlist link!");
             System.exit(1);
         }
+    }
+
+    private static void displayInfo() {
+        System.out.println();
+        for (LinkedHashMap snippet : snippets) {
+            System.out.println(separatorDouble);
+            System.out.println("VIDEO TITLE: " + snippet.get("title"));
+            System.out.println("UPLOADER: " + snippet.get("channelTitle"));
+        }
+        System.out.println(separatorDouble);
     }
 
     private static void saveInfo() {
