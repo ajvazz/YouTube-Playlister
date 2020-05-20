@@ -3,7 +3,7 @@ import java.io.PrintWriter;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.*;
 
-public class App {
+public class Playlister {
 
     public static String API_KEY = "AIzaSyDciUo9L8xywPEvPqvMsLfsMIdHjNFo73I";
     public static String baseURI = "https://www.googleapis.com/youtube/v3/playlistItems";

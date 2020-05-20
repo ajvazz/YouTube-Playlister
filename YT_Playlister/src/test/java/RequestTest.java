@@ -8,7 +8,7 @@ public class RequestTest {
 
     @Test
     public void validRequest() {
-        Response response = App.sendRequest(validRequest);
+        Response response = Playlister.sendRequest(validRequest);
         response.then().
                 assertThat().
                 statusCode(200);
@@ -16,7 +16,7 @@ public class RequestTest {
 
     @Test
     public void invalidRequest() {
-        Response response = App.sendRequest(invalidRequest);
+        Response response = Playlister.sendRequest(invalidRequest);
         response.then().
                 assertThat().
                 statusCode(404);
