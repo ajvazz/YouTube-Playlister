@@ -11,46 +11,67 @@ public class Playlister {
     public static String maxResults = "maxResults=50";
     public static String playlistId = "";
     public static String request = "";
+    public static String outputPath = "";
+    public static String nextPageToken = "";
     public static ArrayList<LinkedHashMap> snippets;
     public static Response response = null;
-
     private static String separatorDouble = "==================================================================================================";
 
 
     public static void main(String[] args) {
         inputParameters();
-        createRequest();
-        sendRequest(request);
-        displayInfo();
-        saveInfo();
+        createNewRequest();
+        sendRequest();
     }
 
-    public static Response sendRequest(String request) {
-        System.out.println("\033[3mSending request...\033[0m");
+    public static Response sendRequest() {
+        System.out.println("\u001b[32m" + "\033[3mSending request...\033[0m");
+        boolean resultsExist = true;
+
+        while (resultsExist) {
+
+            getResponse();
+            snippets = response.then().extract().path("items.snippet");
+
+            displayInfo();
+            saveInfo();
+
+            if (nextPageExists())
+                createNewRequest();        // Create request again with new page token with the next 50 results
+            else
+                resultsExist = false;
+        }
+
+        return response;
+    }
+
+    private static void getResponse() {
         response = given().
                 contentType("application/json; charset=UTF-16").
                 when().
                 get(request);
-        snippets = response.then().extract().path("items.snippet");
-        return response;
     }
 
-    private static void createRequest() {
-        request +=  baseURI +
+    private static void createNewRequest() {
+        request =  baseURI +
                 "?part=snippet" +
                 "&" + regionCode +
                 "&key=" + API_KEY +
                 "&playlistId=" + playlistId +
-                "&" + maxResults;
+                "&" + maxResults +
+                "&pageToken=" + nextPageToken;
     }
 
     private static void inputParameters() {
-        System.out.print("Please enter YT playlist link, or enter playlist ID: ");
         try (Scanner sc = new Scanner(System.in)) {
+            System.out.print("Please enter YT playlist link, or enter playlist ID: ");
             parseInput(sc);
+            System.out.print("Please enter where you want to save the output (example: 'myPlaylist.txt'): ");
+            outputPath = sc.nextLine();
         } catch (Exception e) {
-            System.err.println("Exception! Error: " + e.getMessage());
+            System.err.println(e.getMessage());
         }
+
     }
 
     private static void parseInput(Scanner sc) {
@@ -66,23 +87,25 @@ public class Playlister {
         }
     }
 
+    private static boolean nextPageExists() {
+        nextPageToken = response.then().extract().path("nextPageToken");
+        return (nextPageToken != null);
+    }
+
     private static void displayInfo() {
         System.out.println();
         for (LinkedHashMap snippet : snippets) {
             System.out.println(separatorDouble);
             System.out.println("VIDEO TITLE: " + snippet.get("title"));
             System.out.println("UPLOADER: " + snippet.get("channelTitle"));
-        }
-        System.out.println(separatorDouble);
+        } System.out.println(separatorDouble);
     }
 
     private static void saveInfo() {
-        try (PrintWriter file = new PrintWriter("src/main/resources/playlistInfo.txt", "UTF-8")) {
+        try (PrintWriter file = new PrintWriter(outputPath, "UTF-8")) {
             for (LinkedHashMap snippet : snippets) {
-
                 file.println(separatorDouble + separatorDouble);
                 String separatorSingle = "--------------------------------------------------------------------------------------------------";
-
                 file.println(); file.println();
                 file.println("VIDEO TITLE: " + snippet.get("title"));
                 file.println(separatorSingle + separatorSingle);
@@ -91,7 +114,6 @@ public class Playlister {
                 file.println("DESCRIPTION: " + snippet.get("description"));
                 file.println(); file.println();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

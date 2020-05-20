@@ -1,4 +1,6 @@
+import com.google.api.services.youtube.model.PlaylistItem;
 import io.restassured.response.Response;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class RequestTest {
@@ -8,7 +10,8 @@ public class RequestTest {
 
     @Test
     public void validRequest() {
-        Response response = Playlister.sendRequest(validRequest);
+        Playlister.request = validRequest;
+        Response response = Playlister.sendRequest();
         response.then().
                 assertThat().
                 statusCode(200);
@@ -16,7 +19,8 @@ public class RequestTest {
 
     @Test
     public void invalidRequest() {
-        Response response = Playlister.sendRequest(invalidRequest);
+        Playlister.request = invalidRequest;
+        Response response = Playlister.sendRequest();
         response.then().
                 assertThat().
                 statusCode(404);
