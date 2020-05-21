@@ -5,18 +5,18 @@ import static io.restassured.RestAssured.*;
 
 public class Playlister {
 
-    public static String API_KEY = "AIzaSyDciUo9L8xywPEvPqvMsLfsMIdHjNFo73I";
-    public static String baseURI = "https://www.googleapis.com/youtube/v3/playlistItems";
-    public static String regionCode = "regionCode=us";
-    public static String maxResults = "maxResults=50";
-    public static String playlistId = "";
-    public static String request = "";
-    public static String outputPath = "";
-    public static String nextPageToken = "";
-    public static ArrayList<LinkedHashMap> snippets;
-    public static Response response = null;
-    private static String separatorDouble = "==================================================================================================";
 
+//    public static String API_KEY = "AIzaSyDciUo9L8xywPEvPqvMsLfsMIdHjNFo73I";
+//    public static String baseURI = "https://www.googleapis.com/youtube/v3/playlistItems";
+//    public static String regionCode = "regionCode=us";
+//    public static String maxResults = "maxResults=50";
+//    public static String playlistId = "";
+//    public static String request = "";
+//    public static String outputPath = "";
+//    public static String nextPageToken = "";
+//    public static ArrayList<LinkedHashMap> snippets;
+//    public static Response response = null;
+//    private static String separatorDouble = "==================================================================================================";
 
     public static void main(String[] args) {
         inputParameters();
@@ -36,8 +36,9 @@ public class Playlister {
             displayInfo();
             saveInfo();
 
+            // Create request again with new page token, which contains next 50 results
             if (nextPageExists())
-                createNewRequest();        // Create request again with new page token with the next 50 results
+                createNewRequest();
             else
                 resultsExist = false;
         }
