@@ -9,7 +9,9 @@ public class UserOutput {
     }
 
     public static void saveInfo() {
+        System.out.println(Param.snippets.size());
         try (PrintWriter file = new PrintWriter(Param.outputPath, "UTF-8")) {
+
             for (LinkedHashMap snippet : Param.snippets) {
                 file.println(Param.separatorDouble + Param.separatorDouble);
                 String separatorSingle = "--------------------------------------------------------------------------------------------------";

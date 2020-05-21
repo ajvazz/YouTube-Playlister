@@ -1,8 +1,4 @@
 import io.restassured.response.Response;
-
-import java.io.PrintWriter;
-import java.util.LinkedHashMap;
-
 import static io.restassured.RestAssured.given;
 
 public class RequestController {
@@ -31,8 +27,6 @@ public class RequestController {
             getResponse();
             extractInfo();
             UserOutput.saveInfo();
-
-            // Create request again with new page token, which contains next 50 results
             if (nextPageExists())
                 createNewRequest();
             else break;
@@ -40,6 +34,7 @@ public class RequestController {
         UserOutput.successMessage();
         return Param.response;      // Used in tests
     }
+
 
     private static void getResponse() {
         Param.response = given().
@@ -55,6 +50,11 @@ public class RequestController {
 
     private static void extractInfo() {
         Param.snippets = Param.response.then().extract().path("items.snippet");
+        if (Param.snippets == null) {
+            System.err.println( "YouTube API error: Daily Limit Exceeded! You have made too many calls today. " +
+                                "The quota will reset at midnight Pacific Time (PT). Try again later.");
+            System.exit(1);
+        }
     }
 
 }
