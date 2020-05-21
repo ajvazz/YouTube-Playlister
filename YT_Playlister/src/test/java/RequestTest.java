@@ -6,7 +6,7 @@ public class RequestTest {
     @Test
     public void validRequest() {
         Param.request = Param.validRequest;
-        Response response = Controller.sendRequest();
+        Response response = RequestController.sendRequest();
         response.then().
                 assertThat().
                 statusCode(200);
@@ -15,7 +15,7 @@ public class RequestTest {
     @Test
     public void invalidRequest() {
         Param.request = Param.invalidRequest;
-        Response response = Controller.sendRequest();
+        Response response = RequestController.sendRequest();
         response.then().
                 assertThat().
                 statusCode(404);

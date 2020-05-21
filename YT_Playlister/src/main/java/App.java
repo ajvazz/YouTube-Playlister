@@ -1,7 +1,7 @@
 public class App {
 
     public static void main(String[] args) {
-        Controller c = new Controller();
+        RequestController c = new RequestController();
         c.getPlaylistInfo();
     }
 }
