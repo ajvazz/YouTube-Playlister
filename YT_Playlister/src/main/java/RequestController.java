@@ -24,12 +24,12 @@ public class RequestController {
     }
 
     public static Response sendRequest() {
-        System.out.println("\u001b[32m" + "\033[3mSending request...\033[0m");
+        System.out.println();
+        System.out.println(Param.YELLOW + "Sending request..." + Param.RESET);
 
         while (true) {
             getResponse();
             extractInfo();
-            UserOutput.displayInfo();
             UserOutput.saveInfo();
 
             // Create request again with new page token, which contains next 50 results
@@ -37,6 +37,7 @@ public class RequestController {
                 createNewRequest();
             else break;
         }
+        UserOutput.successMessage();
         return Param.response;      // Used in tests
     }
 

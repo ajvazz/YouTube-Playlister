@@ -4,10 +4,13 @@ public class UserInput {
 
     public static void getParameters() {
         try (Scanner sc = new Scanner(System.in)) {
-            System.out.print("Please enter YT playlist link, or enter playlist ID: ");
+            System.out.print(Param.RED + "[REQUIRED]" + Param.RESET + " Please enter YT playlist link, or enter playlist ID: ");
             parseInput(sc);
-            System.out.print("Please enter where you want to save the output (example: 'myPlaylist.txt'): ");
+            System.out.print(Param.RED + "[REQUIRED]" + Param.RESET + " Please enter where you want to save the output (example: 'myPlaylist.txt'): ");
             Param.outputPath = sc.nextLine();
+            System.out.println(Param.CYAN + "[OPTIONAL]" + Param.RESET + " Enter additional information you want to be displayed, or enter \"skip\". Separate with comma.");
+            System.out.print(Param.YELLOW + "(Available: \"videoDescription\", \"datePublished\", \"channelTitle\"): " + Param.RESET);
+            parseAdditionalInformation(sc);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -22,6 +25,27 @@ public class UserInput {
                 Param.playlistId = input;        // It's an ID
         } catch (StringIndexOutOfBoundsException e) {
             System.err.println("Wrong playlist link!");
+            System.exit(1);
+        }
+    }
+
+    private static void parseAdditionalInformation(Scanner sc) {
+        String response = sc.nextLine().trim();
+        if (response.equalsIgnoreCase("skip"))
+            return;
+        for (String s : response.split(","))
+            resolveInfo(s.trim());
+    }
+
+    private static void resolveInfo(String info) {
+        if (info.equalsIgnoreCase("datePublished"))
+            Param.publishedAt = true;
+        else if (info.equalsIgnoreCase("videoDescription"))
+            Param.description = true;
+        else if (info.equalsIgnoreCase("channelTitle"))
+            Param.channelTitle = true;
+        else {
+            System.err.println("Error! Unknown information: '" + info + "'! Please start program again.");
             System.exit(1);
         }
     }

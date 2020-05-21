@@ -3,13 +3,9 @@ import java.util.LinkedHashMap;
 
 public class UserOutput {
 
-    public static void displayInfo() {
+    public static void successMessage() {
         System.out.println();
-        for (LinkedHashMap snippet : Param.snippets) {
-            System.out.println(Param.separatorDouble);
-            System.out.println("VIDEO TITLE: " + snippet.get("title"));
-            System.out.println("UPLOADER: " + snippet.get("channelTitle"));
-        } System.out.println(Param.separatorDouble);
+        System.out.println(Param.GREEN + "Playlist information successfully obtained! Information saved in '"+ Param.outputPath +"'.");
     }
 
     public static void saveInfo() {
@@ -22,8 +18,19 @@ public class UserOutput {
                 file.println(separatorSingle + separatorSingle);
                 file.println("UPLOADER: "    + snippet.get("channelTitle"));
                 file.println(separatorSingle + separatorSingle);
-                file.println("DESCRIPTION: " + snippet.get("description"));
-                file.println(); file.println();
+                if (Param.description) {
+                    file.println("DESCRIPTION: " + snippet.get("description"));
+                    file.println(separatorSingle + separatorSingle);
+                    file.println(); file.println();
+                } if (Param.publishedAt) {
+                    file.println("PUBLISHED AT: " + snippet.get("publishedAt"));
+                    file.println(separatorSingle + separatorSingle);
+                    file.println(); file.println();
+                } if (Param.channelTitle) {
+                    file.println("CHANNEL TITLE: " + snippet.get("channelTitle"));
+                    file.println(separatorSingle + separatorSingle);
+                    file.println(); file.println();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
