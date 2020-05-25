@@ -15,12 +15,12 @@ public class Param {
     public static ArrayList<LinkedHashMap> snippets = null;
     public static Response response = null;
     public static String separatorDouble = "==================================================================================================";
-    public static String validRequest = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&regionCode=us&key=AIzaSyDciUo9L8xywPEvPqvMsLfsMIdHjNFo73I&playlistId=PLQ9sFiNxsP2GnltE3MA7-Imx9Mz03HXzl&maxResults=50";
-    public static String invalidRequest = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&regionCode=us&key=AIzaSyDciUo9L8xywPEvPqvMsLfsMIdHjNFo73I&playlistId=PLQ9sP2GnltE3MA7-Imx9Mz03HXzl&maxResults=50";
+    public static String validRequest = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&regionCode=us&key=AIzaSyDciUo9L8xywPEvPqvMsLfsMIdHjNFo73I&playlistId=PL7DA3D097D6FDBC02&maxResults=50";
+    public static String invalidRequest = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&regionCode=us&key=AIzaSyDciUo9L8xywPEvPqvMsLfsMIdHjNFo73I&playlistId=PL7DA3DD6FDBC02&maxResults=50";
 
     public static boolean publishedAt = false;
     public static boolean description = false;
-    public static boolean channelTitle = false;
+    public static boolean notTesting = true;
 
     public static final String RED = "\u001B[31m";
     public static final String YELLOW = "\u001B[33m";

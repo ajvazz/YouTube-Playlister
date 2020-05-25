@@ -20,18 +20,24 @@ public class RequestController {
     }
 
     public static Response sendRequest() {
-        System.out.println();
-        System.out.println(Param.YELLOW + "Sending request..." + Param.RESET);
+        if (Param.notTesting) {
+            System.out.println();
+            System.out.println(Param.YELLOW + "Sending request..." + Param.RESET);
+        }
 
         while (true) {
             getResponse();
             extractInfo();
-            UserOutput.saveInfo();
+            if (Param.notTesting)
+               UserOutput.saveInfo();
+
             if (nextPageExists())
                 createNewRequest();
             else break;
         }
-        UserOutput.successMessage();
+        if (Param.notTesting)
+            UserOutput.successMessage();
+
         return Param.response;      // Used in tests
     }
 
@@ -50,10 +56,13 @@ public class RequestController {
 
     private static void extractInfo() {
         Param.snippets = Param.response.then().extract().path("items.snippet");
-        if (Param.snippets == null) {
-            System.err.println( "YouTube API error: Daily Limit Exceeded! You have made too many calls today. " +
-                                "The quota will reset at midnight Pacific Time (PT). Try again later.");
-            System.exit(1);
+
+        if (Param.notTesting) {     // This is going to be null when testing, so this needs to work only in non-testing mode
+            if (Param.snippets == null) {
+                System.err.println( "YouTube API error: Daily Limit Exceeded! You have made too many calls today. " +
+                        "The quota will reset at midnight Pacific Time (PT). Try again later.");
+                System.exit(1);
+            }
         }
     }
 

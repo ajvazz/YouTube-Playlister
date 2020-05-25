@@ -9,7 +9,7 @@ public class UserInput {
             System.out.print(Param.RED + "[REQUIRED]" + Param.RESET + " Please enter where you want to save the output (example: 'myPlaylist.txt'): ");
             Param.outputPath = sc.nextLine();
             System.out.println(Param.CYAN + "[OPTIONAL]" + Param.RESET + " Enter additional information you want to be displayed, or enter \"skip\". Separate with comma.");
-            System.out.print(Param.YELLOW + "(Available: \"videoDescription\", \"datePublished\", \"channelTitle\"): " + Param.RESET);
+            System.out.print(Param.YELLOW + "(Available: \"videoDescription\", \"datePublished\"): " + Param.RESET);
             parseAdditionalInformation(sc);
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -42,8 +42,6 @@ public class UserInput {
             Param.publishedAt = true;
         else if (info.equalsIgnoreCase("videoDescription"))
             Param.description = true;
-        else if (info.equalsIgnoreCase("channelTitle"))
-            Param.channelTitle = true;
         else {
             System.err.println("Error! Unknown information: '" + info + "'! Please start program again.");
             System.exit(1);
