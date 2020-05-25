@@ -1,15 +1,18 @@
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 
-public class RequestController {
+public class YouTubePlaylister {
 
-    public void getPlaylistInfo() {
-        UserInput.getParameters();
+    public List<YouTubeVideo> getPlaylistInfo(String playlistId) {
         createNewRequest();
         sendRequest();
     }
 
-    private static void createNewRequest() {
+    public void saveVideosToFile(List<YouTubeVideo> videos) {
+
+    }
+
+    private void createNewRequest() {
         Param.request = Param.baseURI +
                 "?part=snippet" +
                 "&"             + Param.regionCode  +
