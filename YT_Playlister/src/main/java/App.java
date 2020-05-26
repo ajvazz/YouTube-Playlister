@@ -1,11 +1,14 @@
+import java.util.List;
+
 public class App {
 
     public static void main(String[] args) {
-        // args[1] = playlistId, url
-        // args[2] = output file
+        String playlist = args[0];
+        String outputFile = args[1];
 
-        
-        RequestController c = new RequestController();
-        c.getPlaylistInfo();
+        YouTubePlaylister yt = new YouTubePlaylister();
+        List<YouTubeVideo> videos = yt.getVideosFromPlaylist(playlist);
+
+        yt.saveVideosToFile(videos, outputFile);
     }
 }
