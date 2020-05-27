@@ -1,4 +1,3 @@
-import java.io.PrintWriter;
 import java.util.List;
 
 public class YouTubePlaylister {
@@ -8,15 +7,9 @@ public class YouTubePlaylister {
         return youTube.requestVideos();
     }
 
-    public void saveVideosToFile(List<YouTubeVideo> videos, String outputFile) {
-        try (PrintWriter file = new PrintWriter(outputFile, "UTF-8")) {
-            for (YouTubeVideo video : videos) {
-                file.println(video);
-                file.println(Param.separatorDouble);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("Playlist information successfully obtained! Output saved in \""+ outputFile +"\".");
+    public void saveVideosToFile(List<YouTubeVideo> videos, String file) {
+        PlaylistOutput output = new PlaylistOutput();
+        output.write(videos, file);
+        System.out.println("Playlist information successfully obtained! Output saved in \""+ file +"\".");
     }
 }
