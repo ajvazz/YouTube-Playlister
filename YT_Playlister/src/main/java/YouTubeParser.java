@@ -16,7 +16,8 @@ public class YouTubeParser {
             String title = snippet.get("title").toString();
             String description = snippet.get("description").toString();
             String publishedAt = snippet.get("publishedAt").toString();
-            YouTubeVideo video = new YouTubeVideo(title, description, publishedAt);
+            String channelTitle = snippet.get("channelTitle").toString();
+            YouTubeVideo video = new YouTubeVideo(title, description, publishedAt, channelTitle);
             videos.add(video);
         }
         return videos;
