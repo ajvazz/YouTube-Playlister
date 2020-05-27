@@ -10,6 +10,6 @@ public class YouTubePlaylister {
     public void saveVideosToFile(List<YouTubeVideo> videos, String file) {
         PlaylistOutput output = new PlaylistOutput();
         output.write(videos, file);
-        System.out.println("Playlist information successfully obtained!");
+        System.out.println("Playlist information successfully obtained! Output saved in \""+ file +"\".");
     }
 }
