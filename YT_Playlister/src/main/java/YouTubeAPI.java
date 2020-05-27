@@ -1,15 +1,16 @@
+import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 
 public class YouTubeAPI {
 
-    private String baseURI = "https://www.googleapis.com/youtube/v3/playlistItems";
-    private String API_KEY = "AIzaSyDciUo9L8xywPEvPqvMsLfsMIdHjNFo73I";
-    private String regionCode = "regionCode=us";
-    private String maxResults = "maxResults=50";
+    private final String baseURI = "https://www.googleapis.com/youtube/v3/playlistItems";
+    private final String API_KEY = "AIzaSyDciUo9L8xywPEvPqvMsLfsMIdHjNFo73I";
+    private final String regionCode = "regionCode=us";
+    private final String maxResults = "maxResults=50";
+
     private ArrayList<LinkedHashMap> snippets = null;
     private String request = null;
     private String playlistId = null;
@@ -18,6 +19,7 @@ public class YouTubeAPI {
 
     private List<YouTubeVideo> videos;
     private YouTubeParser parser;
+
 
     public YouTubeAPI(String playlist) {
         parser = new YouTubeParser();
