@@ -19,10 +19,10 @@ class YouTubeVideo {
 
     @Override
     public String toString() {
-        final String TAB = "            ";
-        return  //TAB + "\"description\": "   + getDescription()  + "," + Param.newLine +
-                //TAB + "\"publishedAt\": "   + getPublishedAt()  + "," + Param.newLine +
-                TAB + "\"title\": "     + getTitle()    + "," + Param.newLine +
-                TAB + "\"channel\": "   + getChannel();
+        final String TAB = "        ";
+        return  //TAB + "\"description\": \""   + getDescription()  + "\"," + Param.newLine +
+                //TAB + "\"publishedAt\": \""   + getPublishedAt()  + "\"," + Param.newLine +
+                TAB + "\"videoTitle\": \""     + getTitle()    + "\"," + Param.newLine +
+                TAB + "\"uploadedBy\": \""   + getChannel()  + "\"";
     }
 }
