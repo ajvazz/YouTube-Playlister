@@ -4,7 +4,8 @@ public class YouTubePlaylister {
 
     public List<YouTubeVideo> getVideosFromPlaylist(String playlist) {
         YouTubeAPI youTube = new YouTubeAPI(playlist);
-        return youTube.requestVideos();
+        youTube.requestVideos();
+        return youTube.getVideos();
     }
 
     public void saveVideosToFile(List<YouTubeVideo> videos, String file) {

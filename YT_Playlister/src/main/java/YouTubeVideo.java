@@ -19,7 +19,7 @@ class YouTubeVideo {
 
     @Override
     public String toString() {
-        final String TAB = "        ";
+        final String TAB = "           ";
         return  //TAB + "\"description\": \""   + getDescription()  + "\"," + Param.newLine +
                 //TAB + "\"publishedAt\": \""   + getPublishedAt()  + "\"," + Param.newLine +
                 TAB + "\"videoTitle\": \""     + getTitle()    + "\"," + Param.newLine +

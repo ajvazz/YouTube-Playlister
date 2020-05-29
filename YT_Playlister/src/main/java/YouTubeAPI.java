@@ -27,10 +27,13 @@ public class YouTubeAPI {
         this.videos = new ArrayList<>();
     }
 
-    public List<YouTubeVideo> requestVideos() {
-        createNewRequest();
-        sendRequest();
+    public List<YouTubeVideo> getVideos() {
         return videos;
+    }
+
+    public Response requestVideos() {
+        createNewRequest();
+        return sendRequest();   // Return value used only in tests
     }
 
     private void createNewRequest() {
@@ -51,13 +54,11 @@ public class YouTubeAPI {
                 createNewRequest();
             else break;
         }
-        return response;      // Used in tests
+        return response;
     }
 
     private void getResponse() {
-        response = given().
-                when().
-                get(request);
+        response = given().when().get(request);
     }
 
     private boolean nextPageExists() {
@@ -67,14 +68,13 @@ public class YouTubeAPI {
 
     private void extractResponse() {
         snippets = response.then().extract().path("items.snippet");
-        videos.addAll(parser.getNext50Videos(snippets));
-
-//        if (Param.notTesting) {     // This is going to be null when testing, so this needs to work only in non-testing mode
-//            if (snippets == null) {
-//                System.err.println( "YouTube API error: Daily Limit Exceeded! You have made too many calls today. " +
-//                        "The quota will reset at midnight Pacific Time (PT). Try again later.");
-//                System.exit(1);
-//            }
-//        }
+        if (snippets == null) {
+            if (Param.notTesting) {
+                System.err.println( "Parameter error! Aborting.");
+                System.exit(1);
+            }
+        } else
+            videos.addAll(parser.getNext50Videos(snippets));
     }
+
 }
