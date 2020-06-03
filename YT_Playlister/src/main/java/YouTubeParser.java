@@ -14,10 +14,8 @@ public class YouTubeParser {
         List<YouTubeVideo> videos = new ArrayList<>();
         for (LinkedHashMap snippet : snippets) {
             String title = snippet.get("title").toString();
-            String description = snippet.get("description").toString();
-            String publishedAt = snippet.get("publishedAt").toString();
             String channelTitle = snippet.get("channelTitle").toString();
-            YouTubeVideo video = new YouTubeVideo(title, description, publishedAt, channelTitle);
+            YouTubeVideo video = new YouTubeVideo(title, channelTitle);
             videos.add(video);
         }
         return videos;
