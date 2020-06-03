@@ -6,19 +6,14 @@ import static io.restassured.RestAssured.given;
 
 public class YouTubeAPI {
 
-    private final String baseURI = "https://www.googleapis.com/youtube/v3/playlistItems";
-    private final String API_KEY = "AIzaSyDciUo9L8xywPEvPqvMsLfsMIdHjNFo73I";
-    private final String regionCode = "regionCode=us";
-    private final String maxResults = "maxResults=50";
+    private final YouTubeParser parser;
+    private final List<YouTubeVideo> videos;
 
-    private ArrayList<LinkedHashMap> snippets = null;
     private String request = null;
     private String playlistId = null;
     private Response response = null;
     private String nextPageToken = "";
-
-    private List<YouTubeVideo> videos;
-    private YouTubeParser parser;
+    public static boolean notTesting = true;
 
 
     public YouTubeAPI(String playlist) {
@@ -37,12 +32,14 @@ public class YouTubeAPI {
     }
 
     private void createNewRequest() {
+        final String baseURI = "https://www.googleapis.com/youtube/v3/playlistItems";
+        final String API_KEY = "AIzaSyDciUo9L8xywPEvPqvMsLfsMIdHjNFo73I";
         request = baseURI +
                 "?part=snippet" +
-                "&"             + regionCode  +
                 "&key="         + API_KEY     +
                 "&playlistId="  + playlistId  +
-                "&"             + maxResults  +
+                "&maxResults=50"+
+                "&regionCode=us"+
                 "&pageToken="   + nextPageToken;
     }
 
@@ -67,9 +64,10 @@ public class YouTubeAPI {
     }
 
     private void extractResponse() {
+        ArrayList<LinkedHashMap> snippets;
         snippets = response.then().extract().path("items.snippet");
         if (snippets == null) {
-            if (Param.notTesting) {
+            if (notTesting) {
                 System.err.println( "Parameter error! Aborting.");
                 System.exit(1);
             }

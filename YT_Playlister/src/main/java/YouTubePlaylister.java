@@ -9,8 +9,7 @@ public class YouTubePlaylister {
     }
 
     public void saveVideosToFile(List<YouTubeVideo> videos, String file) {
-        PlaylistOutput output = new PlaylistOutput();
-        output.writeAsJSON(videos, file);
+        new PlaylistOutput().writeToJSON(videos, file);
         System.out.println("Playlist information successfully obtained! Output saved in \""+ file +"\".");
     }
 }

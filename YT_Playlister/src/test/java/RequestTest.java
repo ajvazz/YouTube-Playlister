@@ -10,22 +10,24 @@ import java.util.List;
 public class RequestTest {
 
     private static List<YouTubeVideo> videos;
+    private static final String validPlaylist    = "https://www.youtube.com/playlist?list=PL7DA3D097D6FDBC02";
+    private static final String invalidPlaylist  = "https://www.youtube.com/playlist?list=PL7DA3DD6FDBC02";
 
     @BeforeClass
     public static void setup() {
-        Param.notTesting = false;
-        videos = new YouTubePlaylister().getVideosFromPlaylist(Param.validPlaylist);
+        YouTubeAPI.notTesting = false;
+        videos = new YouTubePlaylister().getVideosFromPlaylist(validPlaylist);
     }
 
     @AfterClass
     public static void tearDown() {
-        Param.notTesting = true;
+        YouTubeAPI.notTesting = true;
     }
 
 
     @Test
     public void validRequest() {
-        YouTubeAPI api = new YouTubeAPI(Param.validPlaylist);
+        YouTubeAPI api = new YouTubeAPI(validPlaylist);
         Response response = api.requestVideos();
         response.then()
                 .assertThat()
@@ -34,7 +36,7 @@ public class RequestTest {
 
     @Test
     public void invalidRequest() {
-        YouTubeAPI api = new YouTubeAPI(Param.invalidPlaylist);
+        YouTubeAPI api = new YouTubeAPI(invalidPlaylist);
         Response response = api.requestVideos();
         response.then()
                 .assertThat()
@@ -55,8 +57,9 @@ public class RequestTest {
         Assert.assertNotEquals(new File(outputFile).length(), 0);
     }
 
+    // NOTE: there will either be 150, or 149. Observed that one song often gets taken down and uploaded again.
     @Test
     public void correctLength() {
-        Assert.assertEquals(149, videos.size());
+        Assert.assertEquals(150, videos.size());
     }
 }

@@ -3,7 +3,7 @@ import java.util.List;
 
 public class PlaylistOutput {
 
-    public void writeAsJSON(List<YouTubeVideo> videos, String outputFile) {
+    public void writeToJSON(List<YouTubeVideo> videos, String outputFile) {
         try (PrintWriter file = new PrintWriter(outputFile, "UTF-8")) {
             file.println("{ \"playlistItems\": {");
             file.println();
