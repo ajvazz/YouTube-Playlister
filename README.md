@@ -1,5 +1,6 @@
 # YouTube Playlister
-Program provides information about videos/songs in a YouTube playlist.  
+Program provides information about videos/songs in a YouTube playlist.
+
 Idea behind this program is that some videos are sometimes deleted by uploaders, so this is a way to make sure you have saved at least song names before they are deleted.
 
 ## Starting the program
