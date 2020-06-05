@@ -5,19 +5,25 @@ Idea behind this program is that some videos are sometimes deleted by uploaders,
 
 ## Starting the program
 
-#### 1. Console
+#### 1. Via Console (creating jar file)
 You can create your own .jar file of this program, but you first need to generate it. Steps:
 * Open terminal and type `git clone https://github.com/ajvazz/YouTube-Playlister.git`
 * Then, type `cd YouTube-Playlister/YT_Playlister`
 * To build jar file, enter: `mvn clean compile assembly:single`
 * If no errors occured, a _target_ folder should appear. Just do `cd target`
-* Then, to start the program, type: `java -jar name_of_generated_JAR_file.jar playlistLink [outputFile]`  
+* A file named `YT_Playlister-1.0-SNAPSHOT-jar-with-dependencies.jar` should appear
+* [Optional] If you want to rename that long file name, type `mv YT_Playlister-1.0-SNAPSHOT-jar-with-dependencies.jar new_file_name`. For example, you can set _new_file_name_ to YouTubePlaylister.jar
+* Then, to start the program, type: `java -jar name_of_JAR_file.jar playlistLink [outputFile]`  
 
 For more info on the last step, visit **Usage**.
 
-#### 2. IntelliJ IDEA
-First, clone this repository with `git clone https://github.com/ajvazz/YouTube-Playlister.git`. Then, open IntelliJ IDEA and import this program (as Maven). Since the program is run via _program arguments_, you would need to go to Edit Configurations in IntelliJ IDEA and under `Program arguments`. In there, enter link of YouTube playlist and an optional file output (important, needs to be a JSON file, so it needs to end with .json).
-**Note**: there might be some IntelliJ-based problems with initial program start up. Set project SDK to Java 8 (or 1.8). Feel free to contact me if you have any questions.
+#### 2. Via IntelliJ IDEA
+* First, clone this repository with `git clone https://github.com/ajvazz/YouTube-Playlister.git`
+* Then, start IntelliJ IDEA and import this program (if it asks - as Maven). Program root: **YouTube-Playlister/YT_Playlister**
+* If a pop-up window asks to import Maven settings, click `import`, and/or set SDK to Java 8 (1.8)
+* Since the program is run via **Program Arguments**, you need set them first. Go to **Edit Configurations** in IntelliJ IDEA and under **Program arguments**  enter link of YouTube playlist and an optional file output (important, needs to be a JSON file, so it needs to end with .json). Correct input: `https://www.youtube.com/playlist?list=PL7DA3D097D6FDBC02 output.json`
+
+Feel free to contact me if you have any questions about these two steps.
 
 ## Usage
 **How to run the program?**  
