@@ -3,6 +3,10 @@ Program provides information about videos/songs in a YouTube playlist.
 
 Idea behind this program is that some videos are sometimes deleted by uploaders, so this is a way to make sure you have saved at least song names before they are deleted.
 
+## Video tutorial on how to use YouTube Playlister
+
+[![YouTube Playlister on Youtube](https://www.scribendi.com/images/cms/thumbnails/Brackets_720x370.jpg)](https://www.youtube.com/watch?v=jB0QswJzL5Q)
+
 ## Starting the program
 
 #### 1. Via Console (creating jar file)
