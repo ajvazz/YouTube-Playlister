@@ -5,7 +5,7 @@ Idea behind this program is that some videos are sometimes deleted by uploaders,
 
 ## Video tutorial on how to use YouTube Playlister
 
-[![YouTube Playlister on Youtube](https://www.scribendi.com/images/cms/thumbnails/Brackets_720x370.jpg)](https://www.youtube.com/watch?v=jB0QswJzL5Q)
+[![YouTube Playlister on Youtube](https://www.htxt.co.za/wp-content/uploads/2017/08/youtube-logo-new.jpg)](https://www.youtube.com/watch?v=jB0QswJzL5Q)
 
 ## Starting the program
 
